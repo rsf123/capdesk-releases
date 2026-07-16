@@ -11,7 +11,7 @@ downloads and auto-update work without anyone needing a GitHub account or a toke
 | | |
 |---|---|
 | **Windows / macOS** | [**Latest release**](https://github.com/rsf123/capdesk-releases/releases/latest) |
-| **ChromeOS** | [**Open the web app**](https://rsf123.github.io/capdesk-releases/) — then *Install* from the browser menu. It works offline afterwards. |
+| **ChromeOS** | [**Open the web app**](https://rsf123.github.io/capdesk-releases/app/) — then *Install* from the browser menu. It works offline afterwards. |
 
 ### Releases marked *Pre-release*
 
