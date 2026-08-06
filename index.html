@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CAP ICP — downloads</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 42rem; margin: 3rem auto; padding: 0 1.25rem;
+    }
+    header { display: flex; align-items: center; gap: .9rem; }
+    header img { width: 56px; height: 56px; border-radius: 12px; }
+    h1 { font-size: 1.6rem; margin: 0; }
+    .tag { margin: .15rem 0 0; opacity: .75; }
+    .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.75rem 0; }
+    .btn {
+      display: inline-block; padding: .6rem 1.1rem; border-radius: 8px;
+      text-decoration: none; font-weight: 600;
+    }
+    .primary { background: #1d4ed8; color: #fff; }
+    .secondary { border: 1px solid rgba(128,128,128,.55); }
+    h2 { font-size: 1.05rem; margin: 2rem 0 .5rem; }
+    p { margin: .5rem 0; }
+    .muted { opacity: .75; font-size: .92rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="app/icon.png" alt="" width="56" height="56">
+    <div>
+      <h1>CAP ICP</h1>
+      <p class="tag">Desktop companion for the Ground Branch Director — works offline.</p>
+    </div>
+  </header>
+
+  <p>Prepare sorties, push them to the team's phones, run the status board, and finish the
+  paperwork on a real keyboard. This site holds only the built app; the source is private.</p>
+
+  <div class="actions">
+    <a class="btn primary" href="https://github.com/rsf123/capdesk-releases/releases/latest">Download for Windows / macOS</a>
+    <a class="btn secondary" href="app/">Open the web app (ChromeOS)</a>
+  </div>
+
+  <h2>ChromeOS</h2>
+  <p>Open the <a href="app/">web app</a>, then choose <em>Install</em> from the browser menu.
+  It works offline afterwards.</p>
+
+  <h2>Releases marked “Pre-release”</h2>
+  <p>Those are <strong>internal test builds</strong>. Install one only if you are testing.
+  Once you install a pre-release, the app keeps updating you to pre-releases — that is
+  deliberate, and it is how test builds are kept away from everyone else.</p>
+
+  <h2>First launch will warn you — the app is not yet code-signed</h2>
+  <p><strong>Windows</strong> — SmartScreen: <em>More info → Run anyway</em>.<br>
+  <strong>macOS</strong> — right-click the app → <em>Open</em>, then confirm. (An unsigned macOS
+  build also cannot auto-update; until it is signed, download new Mac versions from here by hand.)</p>
+
+  <h2>Your data</h2>
+  <p class="muted">Everything stays on your machine. Sortie files exchanged with phones
+  (<code>.capsortie</code>) are encrypted with your unit's passphrase, which you set in
+  Settings — a file that leaves your device is never readable without it.</p>
+
+  <script>
+    // The web app used to live at THIS path and registered a service worker scoped to it. That
+    // worker still controls this URL on returning visitors and would keep serving them the cached
+    // app here forever. Unregister exactly that root-scoped worker; the app's own worker
+    // (scoped to app/) is left alone.
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((regs) => {
+        for (const reg of regs) {
+          const scope = new URL(reg.scope).pathname;
+          if (scope === '/capdesk-releases/') reg.unregister();
+        }
+      }).catch(() => {});
+    }
+  </script>
+</body>
+</html>

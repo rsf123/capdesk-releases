@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/capdesk-releases/app/sw.js', { scope: '/capdesk-releases/app/' })})}
